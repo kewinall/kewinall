@@ -1,0 +1,273 @@
+<!doctype html>
+<html lang="zh-Hant">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta name="color-scheme" content="dark light">
+  <title>kewinall — Senior Data Engineer · Data Platform Engineer</title>
+  <meta name="description" content="Enterprise Data Engineering, Data Platform, DataOps and governed AI integration portfolio.">
+  <style>
+    :root{
+      --bg:#0b1220;--panel:#111a2b;--panel2:#162238;--text:#e8eef8;--muted:#9fb0c7;
+      --line:#263754;--accent:#63a8ff;--accent2:#71e0bd;--warn:#f0c36a;--shadow:0 18px 50px rgba(0,0,0,.28);
+      --radius:18px;--max:1180px
+    }
+    *{box-sizing:border-box}
+    html{scroll-behavior:smooth}
+    body{margin:0;background:
+      radial-gradient(circle at 15% -10%,rgba(99,168,255,.18),transparent 30rem),
+      radial-gradient(circle at 90% 5%,rgba(113,224,189,.11),transparent 28rem),
+      var(--bg);color:var(--text);font-family:Inter,ui-sans-serif,system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI","Noto Sans TC",sans-serif;line-height:1.65}
+    a{color:inherit;text-decoration:none}
+    .wrap{width:min(var(--max),calc(100% - 36px));margin:auto}
+    header{position:sticky;top:0;z-index:20;background:rgba(11,18,32,.78);backdrop-filter:blur(14px);border-bottom:1px solid rgba(255,255,255,.06)}
+    nav{height:66px;display:flex;align-items:center;justify-content:space-between;gap:24px}
+    .brand{font-weight:800;letter-spacing:.02em}
+    .navlinks{display:flex;gap:20px;flex-wrap:wrap;font-size:14px;color:var(--muted)}
+    .navlinks a:hover{color:var(--text)}
+    .hero{padding:92px 0 66px}
+    .eyebrow{display:inline-flex;padding:7px 11px;border:1px solid rgba(99,168,255,.35);border-radius:999px;color:#b9d8ff;background:rgba(99,168,255,.08);font-size:13px}
+    h1{font-size:clamp(40px,7vw,78px);line-height:1.03;letter-spacing:-.045em;margin:22px 0 20px;max-width:980px}
+    .lead{font-size:clamp(18px,2.1vw,24px);max-width:900px;color:var(--muted);margin:0 0 30px}
+    .hero-actions{display:flex;gap:12px;flex-wrap:wrap}
+    .btn{display:inline-flex;align-items:center;gap:8px;padding:11px 15px;border-radius:12px;border:1px solid var(--line);background:var(--panel);font-weight:700}
+    .btn.primary{background:var(--accent);color:#07101e;border-color:transparent}
+    .btn:hover{transform:translateY(-1px)}
+    .strip{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin-top:44px}
+    .metric{padding:18px;border:1px solid var(--line);border-radius:14px;background:rgba(17,26,43,.72)}
+    .metric b{display:block;font-size:24px}
+    .metric span{font-size:13px;color:var(--muted)}
+    section{padding:58px 0}
+    .section-head{display:flex;justify-content:space-between;gap:24px;align-items:end;margin-bottom:24px}
+    .section-head h2{font-size:clamp(28px,4vw,42px);margin:0;letter-spacing:-.025em}
+    .section-head p{max-width:640px;margin:0;color:var(--muted)}
+    .architecture{border:1px solid var(--line);border-radius:var(--radius);background:linear-gradient(180deg,rgba(22,34,56,.92),rgba(14,22,36,.92));padding:24px;box-shadow:var(--shadow)}
+    .arch-flow{display:grid;grid-template-columns:1fr;gap:14px}
+    .arch-row{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;align-items:stretch}
+    .arch-node{border:1px solid var(--line);border-radius:14px;padding:16px;background:rgba(9,16,29,.7)}
+    .arch-node strong{display:block;margin-bottom:4px}
+    .arch-node small{color:var(--muted)}
+    .arch-main{border-color:rgba(99,168,255,.5);background:rgba(99,168,255,.08)}
+    .arch-ai{border-color:rgba(113,224,189,.45);background:rgba(113,224,189,.06)}
+    .arrow{text-align:center;color:var(--muted);font-weight:800;letter-spacing:.18em}
+    .cards{display:grid;grid-template-columns:repeat(2,1fr);gap:18px}
+    .card{display:flex;flex-direction:column;min-height:300px;padding:24px;border-radius:var(--radius);border:1px solid var(--line);background:linear-gradient(180deg,var(--panel),rgba(14,22,36,.9));box-shadow:var(--shadow)}
+    .card .num{font-size:12px;letter-spacing:.13em;color:var(--accent2);text-transform:uppercase}
+    .card h3{font-size:26px;line-height:1.18;margin:10px 0 8px}
+    .role{color:#b9d8ff;font-weight:700;font-size:14px}
+    .card p{color:var(--muted);margin:13px 0 18px}
+    .chips{display:flex;flex-wrap:wrap;gap:7px;margin-bottom:20px}
+    .chip{border:1px solid var(--line);border-radius:999px;padding:5px 9px;font-size:12px;color:#c6d3e4}
+    .links{margin-top:auto;display:flex;flex-wrap:wrap;gap:9px}
+    .links a{padding:8px 10px;border-radius:10px;background:var(--panel2);border:1px solid var(--line);font-size:13px;font-weight:700}
+    .links a.live{background:rgba(113,224,189,.12);border-color:rgba(113,224,189,.36);color:#bff4e4}
+    .wide{grid-column:1/-1}
+    .focus{display:grid;grid-template-columns:repeat(4,1fr);gap:12px}
+    .focus div{padding:18px;border-radius:14px;background:var(--panel);border:1px solid var(--line)}
+    .focus b{display:block;margin-bottom:6px}
+    .focus span{color:var(--muted);font-size:14px}
+    .review{counter-reset:step;display:grid;grid-template-columns:repeat(5,1fr);gap:10px}
+    .review div{position:relative;padding:18px 14px 16px;border:1px solid var(--line);border-radius:14px;background:var(--panel)}
+    .review div:before{counter-increment:step;content:counter(step);display:grid;place-items:center;width:30px;height:30px;border-radius:50%;background:rgba(99,168,255,.12);color:#b9d8ff;font-weight:800;margin-bottom:12px}
+    .review strong{display:block;font-size:14px}
+    .review small{color:var(--muted)}
+    footer{padding:46px 0 70px;color:var(--muted);border-top:1px solid rgba(255,255,255,.06);margin-top:30px}
+    code{font-family:ui-monospace,SFMono-Regular,Menlo,monospace}
+    @media(max-width:900px){
+      .strip,.focus{grid-template-columns:repeat(2,1fr)}
+      .review{grid-template-columns:1fr 1fr}
+      .arch-row{grid-template-columns:1fr}
+    }
+    @media(max-width:680px){
+      .navlinks{display:none}
+      .hero{padding-top:64px}
+      .strip,.cards,.focus,.review{grid-template-columns:1fr}
+      .wide{grid-column:auto}
+      .section-head{display:block}
+      .section-head p{margin-top:10px}
+    }
+  </style>
+</head>
+<body>
+<header>
+  <div class="wrap">
+    <nav>
+      <a class="brand" href="#top">kewinall / portfolio</a>
+      <div class="navlinks">
+        <a href="#architecture">Architecture</a>
+        <a href="#projects">Projects</a>
+        <a href="#focus">Engineering Focus</a>
+        <a href="#review">Review Path</a>
+        <a href="https://github.com/kewinall">GitHub</a>
+      </div>
+    </nav>
+  </div>
+</header>
+
+<main id="top">
+  <section class="hero">
+    <div class="wrap">
+      <span class="eyebrow">Enterprise Data Engineering · Platform Engineering · Governed AI Integration</span>
+      <h1>Senior Data Engineer<br>Data Platform Engineer</h1>
+      <p class="lead">
+        以企業級 Data Engineering 為核心，將 ETL、Data Platform、DataOps、RAG、MCP 與 Multi-LLM
+        能力拆成具備清楚責任邊界、可治理、可觀測、可部署的 production-oriented platforms。
+      </p>
+      <div class="hero-actions">
+        <a class="btn primary" href="#projects">Explore 5 Core Projects</a>
+        <a class="btn" href="https://github.com/kewinall">GitHub Profile</a>
+        <a class="btn" href="https://github.com/kewinall/kewinall">Profile README</a>
+      </div>
+      <div class="strip">
+        <div class="metric"><b>5</b><span>Core enterprise platform projects</span></div>
+        <div class="metric"><b>700+</b><span>DWH tables migration experience</span></div>
+        <div class="metric"><b>~8 TB</b><span>Enterprise data migration scale</span></div>
+        <div class="metric"><b>3×</b><span>Representative workload performance improvement</span></div>
+      </div>
+    </div>
+  </section>
+
+  <section id="architecture">
+    <div class="wrap">
+      <div class="section-head">
+        <h2>Portfolio Architecture</h2>
+        <p>五個 Repository 刻意分層，而不是把所有功能堆在單一 AI Demo。主幹是 Enterprise Data Engineering，AI 是被治理的延伸能力。</p>
+      </div>
+      <div class="architecture">
+        <div class="arch-flow">
+          <div class="arch-node arch-main"><strong>Enterprise ETL Platform</strong><small>Airflow · Apache Hop · Audit · Retry · Supply Chain · SLO</small></div>
+          <div class="arrow">↓</div>
+          <div class="arch-node"><strong>Enterprise Data Platform</strong><small>Reliable data lifecycle, metadata, operations and governed integration</small></div>
+          <div class="arrow">↓</div>
+          <div class="arch-row">
+            <div class="arch-node"><strong>Data Platform MCP Server</strong><small>PostgreSQL · Vertica · Airflow · Logs · Metadata · Lineage</small></div>
+            <div class="arch-node arch-ai"><strong>Enterprise RAG Platform</strong><small>Hybrid Retrieval · Reranking · Citation · Evaluation · Governance</small></div>
+            <div class="arch-node arch-ai"><strong>Agentic DataOps Copilot</strong><small>Triage · Evidence · RCA · Policy · Human Approval · Audit</small></div>
+          </div>
+          <div class="arrow">↓</div>
+          <div class="arch-node arch-ai"><strong>Multi-LLM AI Gateway</strong><small>Routing · Fallback · Streaming · Identity · Policy · Cost · Observability</small></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="projects">
+    <div class="wrap">
+      <div class="section-head">
+        <h2>Featured Projects</h2>
+        <p>每個專案都提供 GitHub README、版本化 Release 與 single-file Interactive Project Guide，方便面試官快速了解架構與工程決策。</p>
+      </div>
+
+      <div class="cards">
+        <article class="card wide">
+          <span class="num">01 · Data Engineering Foundation</span>
+          <h3>Enterprise ETL Platform</h3>
+          <div class="role">Enterprise Data Engineering Platform · v0.5.0</div>
+          <p>以 Airflow → Apache Hop 為 execution path，涵蓋 PostgreSQL audit/retry lifecycle、immutable promotion、air-gapped delivery、Prometheus/Grafana、SLO 與 alerting。</p>
+          <div class="chips"><span class="chip">Airflow</span><span class="chip">Apache Hop</span><span class="chip">PostgreSQL</span><span class="chip">Supply Chain</span><span class="chip">Observability</span></div>
+          <div class="links">
+            <a class="live" href="https://kewinall.github.io/enterprise-etl-platform/">Live Guide</a>
+            <a href="https://github.com/kewinall/enterprise-etl-platform">Repository</a>
+            <a href="https://github.com/kewinall/enterprise-etl-platform/releases/tag/v0.5.0">Release</a>
+          </div>
+        </article>
+
+        <article class="card">
+          <span class="num">02 · Integration Layer</span>
+          <h3>Data Platform MCP Server</h3>
+          <div class="role">Tool / Integration Platform · v0.4.0</div>
+          <p>將 PostgreSQL、Vertica、Airflow、Logs、Metadata 與 Lineage 轉換成標準化、受治理的 MCP Tool Contract。</p>
+          <div class="chips"><span class="chip">MCP</span><span class="chip">Vertica</span><span class="chip">Metadata</span><span class="chip">Lineage</span><span class="chip">OIDC/RBAC</span></div>
+          <div class="links">
+            <a class="live" href="https://kewinall.github.io/data-platform-mcp-server/">Live Guide</a>
+            <a href="https://github.com/kewinall/data-platform-mcp-server">Repository</a>
+            <a href="https://github.com/kewinall/data-platform-mcp-server/releases/tag/v0.4.0">Release</a>
+          </div>
+        </article>
+
+        <article class="card">
+          <span class="num">03 · Operations Intelligence</span>
+          <h3>Agentic DataOps Copilot</h3>
+          <div class="role">AI Reasoning / DataOps Operations · v0.5.0</div>
+          <p>針對 Data Platform incidents 執行 triage、evidence correlation 與 RCA；mutation 仍由 deterministic policy、RBAC、human approval 與 audit 控制。</p>
+          <div class="chips"><span class="chip">Agentic AI</span><span class="chip">DataOps</span><span class="chip">RCA</span><span class="chip">Policy</span><span class="chip">Human Approval</span></div>
+          <div class="links">
+            <a class="live" href="https://kewinall.github.io/agentic-dataops-copilot/">Live Guide</a>
+            <a href="https://github.com/kewinall/agentic-dataops-copilot">Repository</a>
+            <a href="https://github.com/kewinall/agentic-dataops-copilot/releases/tag/v0.5.0">Release</a>
+          </div>
+        </article>
+
+        <article class="card">
+          <span class="num">04 · Knowledge Layer</span>
+          <h3>Enterprise RAG Platform</h3>
+          <div class="role">Knowledge AI Platform · v0.6.0</div>
+          <p>展示 enterprise documents 從 ingestion、hybrid retrieval、reranking 到 grounded generation、citation、evaluation 與 tenant-aware governance 的完整路徑。</p>
+          <div class="chips"><span class="chip">RAG</span><span class="chip">Qdrant</span><span class="chip">Hybrid Search</span><span class="chip">Evaluation</span><span class="chip">Governance</span></div>
+          <div class="links">
+            <a class="live" href="https://kewinall.github.io/enterprise-rag-platform/">Live Guide</a>
+            <a href="https://github.com/kewinall/enterprise-rag-platform">Repository</a>
+            <a href="https://github.com/kewinall/enterprise-rag-platform/releases/tag/v0.6.0">Release</a>
+          </div>
+        </article>
+
+        <article class="card">
+          <span class="num">05 · Model Control Plane</span>
+          <h3>Multi-LLM AI Gateway</h3>
+          <div class="role">Model Control Plane · v0.5.0</div>
+          <p>提供 OpenAI-compatible entry point，集中處理 provider routing、fallback、streaming、policy、identity、budget/cost 與 observability。</p>
+          <div class="chips"><span class="chip">OpenAI-compatible</span><span class="chip">Anthropic</span><span class="chip">Gemini</span><span class="chip">Routing</span><span class="chip">LLMOps</span></div>
+          <div class="links">
+            <a class="live" href="https://kewinall.github.io/multi-llm-ai-gateway/">Live Guide</a>
+            <a href="https://github.com/kewinall/multi-llm-ai-gateway">Repository</a>
+            <a href="https://github.com/kewinall/multi-llm-ai-gateway/releases/tag/v0.5.0">Release</a>
+          </div>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <section id="focus">
+    <div class="wrap">
+      <div class="section-head">
+        <h2>Engineering Focus</h2>
+        <p>作品集強調 production engineering，而不是只展示 feature completeness。</p>
+      </div>
+      <div class="focus">
+        <div><b>Data Engineering</b><span>ETL / ELT · DWH · Orchestration · Retry / Recovery</span></div>
+        <div><b>Platform Engineering</b><span>Docker · Kubernetes · CI/CD · Environment Promotion</span></div>
+        <div><b>Observability</b><span>Prometheus · Grafana · OpenTelemetry · SLO · Alerting</span></div>
+        <div><b>Security & Governance</b><span>OIDC · RBAC · Trivy · SBOM · Audit · Human Approval</span></div>
+        <div><b>Database / DWH</b><span>Vertica · PostgreSQL · Oracle · Data Migration</span></div>
+        <div><b>Data Integration</b><span>MCP · Metadata · Lineage · APIs · Tool Contracts</span></div>
+        <div><b>Knowledge AI</b><span>RAG · Hybrid Retrieval · Reranking · Citation · Evaluation</span></div>
+        <div><b>AI Runtime</b><span>Multi-LLM Routing · Policy · Cost Governance · LLMOps</span></div>
+      </div>
+    </div>
+  </section>
+
+  <section id="review">
+    <div class="wrap">
+      <div class="section-head">
+        <h2>5-Minute Review Path</h2>
+        <p>若只有幾分鐘，建議依下列順序閱讀，先確認 Data Engineering 主體，再看 AI 如何作為平台延伸。</p>
+      </div>
+      <div class="review">
+        <div><strong>Enterprise ETL</strong><small>Data Engineering foundation</small></div>
+        <div><strong>MCP Server</strong><small>Platform integration boundary</small></div>
+        <div><strong>DataOps Copilot</strong><small>Governed operations reasoning</small></div>
+        <div><strong>Enterprise RAG</strong><small>Governed knowledge layer</small></div>
+        <div><strong>AI Gateway</strong><small>Centralized model control plane</small></div>
+      </div>
+    </div>
+  </section>
+</main>
+
+<footer>
+  <div class="wrap">
+    <strong>Production-oriented over demo-oriented.</strong><br>
+    Explicit boundaries · Governance · Observability · Security · Auditability · Operability
+  </div>
+</footer>
+</body>
+</html>
