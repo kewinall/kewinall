@@ -29,6 +29,9 @@
 > **🎯 Interview Story Playbook / P2.1**  
 > [30 秒 / 2 分鐘 / 5 分鐘面試講法](INTERVIEW_STORIES.md) — 依 Data Engineering、Platform、DataOps、RAG / AI Integration 問題快速選擇案例，並以 Problem → Decision → Trade-off → Failure / Recovery → Evidence 組織回答。
 
+> **🧭 Resume ↔ GitHub Mapping / P2.2**  
+> [履歷能力 ↔ Portfolio Evidence 對照](RESUME_GITHUB_MAPPING.md) — 將真實工作成果、GitHub Evidence、Resume Bullet、職缺排序與 Claim Safety 串成同一條證據鏈，避免把 Portfolio implementation 過度宣稱成客戶 production 經驗。
+
 ---
 
 ## Portfolio Architecture
