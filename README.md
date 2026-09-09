@@ -26,6 +26,9 @@
 
 每個核心專案皆提供 README、版本化 Release，以及適合面試官快速瀏覽的 **single-file interactive HTML project guide**。
 
+> **🎯 Interview Story Playbook / P2.1**  
+> [30 秒 / 2 分鐘 / 5 分鐘面試講法](INTERVIEW_STORIES.md) — 依 Data Engineering、Platform、DataOps、RAG / AI Integration 問題快速選擇案例，並以 Problem → Decision → Trade-off → Failure / Recovery → Evidence 組織回答。
+
 ---
 
 ## Portfolio Architecture
