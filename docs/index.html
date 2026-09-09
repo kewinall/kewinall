@@ -151,6 +151,39 @@
     </div>
   </section>
 
+  <section id="decisions">
+    <div class="wrap">
+      <div class="section-head">
+        <h2>Engineering Decision Matrix</h2>
+        <p>P1 將每個專案從「功能展示」提升成可面試的工程證據鏈：Problem → Decision → Trade-off → Failure / Recovery → Evidence。</p>
+      </div>
+      <div class="matrix-wrap">
+        <table>
+          <thead><tr><th>Project</th><th>Problem</th><th>Key Decision</th><th>Main Trade-off</th><th>Evidence</th></tr></thead>
+          <tbody>
+            <tr><td><strong>Enterprise ETL</strong></td><td>ETL lifecycle 不能只靠 scheduler status</td><td>Airflow orchestration + Hop processing + PostgreSQL execution truth</td><td>跨 runtime correlation 與 audit DB dependency</td><td><a href="https://kewinall.github.io/enterprise-etl-platform/#engineering-decisions">Decision Evidence</a></td></tr>
+            <tr><td><strong>Data Platform MCP</strong></td><td>AI client 不應直接取得 backend-native privilege</td><td>MCP Tool Contract + Adapter + RBAC/Tenant + read-only defense-in-depth</td><td>Protocol/schema maintenance 與 backend normalization</td><td><a href="https://kewinall.github.io/data-platform-mcp-server/#engineering-decisions">Decision Evidence</a></td></tr>
+            <tr><td><strong>Agentic DataOps</strong></td><td>LLM reasoning 不能等同 production authority</td><td>Deterministic Policy + Human Approval + Explicit Executor + Audit</td><td>不是 full-auto remediation，增加 approval latency</td><td><a href="https://kewinall.github.io/agentic-dataops-copilot/#engineering-decisions">Decision Evidence</a></td></tr>
+            <tr><td><strong>Enterprise RAG</strong></td><td>Fluent answer 不代表 grounded / tenant-safe</td><td>Hybrid Retrieval + Citation + Evaluation + Tenant Governance</td><td>Latency / tuning / eval dataset maintenance</td><td><a href="https://kewinall.github.io/enterprise-rag-platform/#engineering-decisions">Decision Evidence</a></td></tr>
+            <tr><td><strong>Multi-LLM Gateway</strong></td><td>Provider governance 不應散落在每個 application</td><td>Centralized Control Plane + Router + Policy/Budget + Redis state</td><td>Gateway / Redis 成為新的 production dependencies</td><td><a href="https://kewinall.github.io/multi-llm-ai-gateway/#engineering-decisions">Decision Evidence</a></td></tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div class="section-head" style="margin-top:30px">
+        <h2 style="font-size:28px">Production Evidence Matrix</h2>
+        <p>每個專案都有至少一個可執行的 failure / governance / regression evidence，而不是只用 Architecture Diagram 支撐 claim。</p>
+      </div>
+      <div class="evidence-grid">
+        <div><b>ETL</b><span>Lifecycle smoke · Observability smoke · Supply-chain smoke</span></div>
+        <div><b>MCP</b><span>Auth/Audit · Security · Protocol · Integration · Helm validation</span></div>
+        <div><b>DataOps</b><span>Governance · Multi-Agent · RAG evaluation · MCP integration · Hash audit</span></div>
+        <div><b>RAG</b><span>Tenancy · Adversarial · Retrieval/Answer/Agent evaluation · Budget/Rate</span></div>
+        <div><b>Gateway</b><span>Router · Redis state · Governance · Identity · Helm HA baseline</span></div>
+      </div>
+    </div>
+  </section>
+
   <section id="projects">
     <div class="wrap">
       <div class="section-head">
