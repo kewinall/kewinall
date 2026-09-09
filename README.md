@@ -9,17 +9,20 @@
 > **My core is Data Engineering.**  
 > AI / RAG / Agent / MCP capabilities in this portfolio are designed as governed extensions of an enterprise data platform rather than standalone AI experiments.
 
+> **🌐 Portfolio Landing Page**  
+> [Open the interactive portfolio](https://kewinall.github.io/kewinall/) — 五個核心專案、Portfolio Architecture、Live Project Guides 與面試官快速導覽集中於單一入口。
+
 ---
 
 ## Featured Portfolio
 
 | Project | Portfolio Role | What it demonstrates | Release |
 |---|---|---|---:|
-| **[Enterprise ETL Platform](https://github.com/kewinall/enterprise-etl-platform)** | **Enterprise Data Engineering Platform** | Airflow → Apache Hop ETL lifecycle、PostgreSQL Audit、Retry、Immutable Supply Chain、Air-Gapped Delivery、Prometheus/Grafana、SLO | `v0.5.0` |
-| **[Data Platform MCP Server](https://github.com/kewinall/data-platform-mcp-server)** | **Tool / Integration Platform** | PostgreSQL、Vertica、Airflow、Logs、Metadata、Lineage 的標準化 MCP Tool Layer，搭配 OIDC、RBAC、Multi-tenancy | `v0.4.0` |
-| **[Agentic DataOps Copilot](https://github.com/kewinall/agentic-dataops-copilot)** | **AI Reasoning / DataOps Operations** | Incident Triage、Evidence Correlation、Root Cause Analysis、Policy、Human Approval、Tamper-evident Audit | `v0.5.0` |
-| **[Enterprise RAG Platform](https://github.com/kewinall/enterprise-rag-platform)** | **Knowledge AI Platform** | Ingestion、Hybrid Retrieval、Reranking、Grounded Generation、Citation、Evaluation、Knowledge Governance | `v0.6.0` |
-| **[Multi-LLM AI Gateway](https://github.com/kewinall/multi-llm-ai-gateway)** | **Model Control Plane** | OpenAI-compatible API、Multi-provider Routing、Fallback、Streaming、Policy、Quota / Cost、OIDC、Observability | `v0.5.0` |
+| **[Enterprise ETL Platform](https://github.com/kewinall/enterprise-etl-platform)** · [Live Guide](https://kewinall.github.io/enterprise-etl-platform/) | **Enterprise Data Engineering Platform** | Airflow → Apache Hop ETL lifecycle、PostgreSQL Audit、Retry、Immutable Supply Chain、Air-Gapped Delivery、Prometheus/Grafana、SLO | `v0.5.0` |
+| **[Data Platform MCP Server](https://github.com/kewinall/data-platform-mcp-server)** · [Live Guide](https://kewinall.github.io/data-platform-mcp-server/) | **Tool / Integration Platform** | PostgreSQL、Vertica、Airflow、Logs、Metadata、Lineage 的標準化 MCP Tool Layer，搭配 OIDC、RBAC、Multi-tenancy | `v0.4.0` |
+| **[Agentic DataOps Copilot](https://github.com/kewinall/agentic-dataops-copilot)** · [Live Guide](https://kewinall.github.io/agentic-dataops-copilot/) | **AI Reasoning / DataOps Operations** | Incident Triage、Evidence Correlation、Root Cause Analysis、Policy、Human Approval、Tamper-evident Audit | `v0.5.0` |
+| **[Enterprise RAG Platform](https://github.com/kewinall/enterprise-rag-platform)** · [Live Guide](https://kewinall.github.io/enterprise-rag-platform/) | **Knowledge AI Platform** | Ingestion、Hybrid Retrieval、Reranking、Grounded Generation、Citation、Evaluation、Knowledge Governance | `v0.6.0` |
+| **[Multi-LLM AI Gateway](https://github.com/kewinall/multi-llm-ai-gateway)** · [Live Guide](https://kewinall.github.io/multi-llm-ai-gateway/) | **Model Control Plane** | OpenAI-compatible API、Multi-provider Routing、Fallback、Streaming、Policy、Quota / Cost、OIDC、Observability | `v0.5.0` |
 
 每個核心專案皆提供 README、版本化 Release，以及適合面試官快速瀏覽的 **single-file interactive HTML project guide**。
 
