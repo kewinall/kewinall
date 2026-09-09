@@ -83,6 +83,23 @@
 
 ---
 
+
+## Engineering Decision Matrix
+
+P1 將五個作品統一成 **Problem → Engineering Decision → Trade-off → Failure / Recovery → Evidence** 的面試證據鏈；每個 Live Guide 都有對應的 `Engineering Decisions & Production Evidence` 區塊。
+
+| Project | Key Engineering Decision | Main Trade-off | Production Evidence |
+|---|---|---|---|
+| **[Enterprise ETL Platform](https://kewinall.github.io/enterprise-etl-platform/#engineering-decisions)** | Airflow orchestration + Hop processing + PostgreSQL execution truth + immutable promotion | 多 runtime 與 audit DB dependency | lifecycle / observability / supply-chain smoke |
+| **[Data Platform MCP Server](https://kewinall.github.io/data-platform-mcp-server/#engineering-decisions)** | MCP Tool Contract + Adapter + RBAC/Tenant + read-only defense-in-depth | Protocol/schema maintenance、backend normalization | auth/audit、security、protocol、integration、Helm tests |
+| **[Agentic DataOps Copilot](https://kewinall.github.io/agentic-dataops-copilot/#engineering-decisions)** | Reasoning 與 authority 分離；Policy → Approval → Explicit Executor → Audit | 非 full-auto remediation、approval latency | governance、multi-agent、RAG eval、MCP、hash-chained audit |
+| **[Enterprise RAG Platform](https://kewinall.github.io/enterprise-rag-platform/#engineering-decisions)** | Hybrid Retrieval + Citation + Evaluation + Tenant Governance | Latency / tuning / eval dataset maintenance | tenancy、adversarial、retrieval/answer/agent eval、budget/rate |
+| **[Multi-LLM AI Gateway](https://kewinall.github.io/multi-llm-ai-gateway/#engineering-decisions)** | Centralized model control plane + routing/fallback + policy/budget + Redis state | Gateway / Redis 成為新 production dependency | router、Redis integration、governance、identity、Helm validation |
+
+這個矩陣的重點不是列技術名稱，而是展示：**為什麼這樣設計、犧牲了什麼、系統會在哪裡失敗，以及有什麼 evidence 可以驗證 claim。**
+
+---
+
 ## Engineering Focus
 
 | Area | Focus |
