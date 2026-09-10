@@ -135,7 +135,7 @@
       </div>
       <div class="architecture">
         <div class="arch-flow">
-          <div class="arch-node arch-main"><strong>Enterprise ETL Platform</strong><small>Airflow · Apache Hop · Audit · Retry · Supply Chain · SLO</small></div>
+          <div class="arch-node arch-main"><strong>Enterprise ETL Platform</strong><small>Legacy Modernization · Deterministic Metadata / Lineage · AI Evaluation · Runtime Evidence</small></div>
           <div class="arrow">↓</div>
           <div class="arch-node"><strong>Enterprise Data Platform</strong><small>Reliable data lifecycle, metadata, operations and governed integration</small></div>
           <div class="arrow">↓</div>
@@ -155,13 +155,13 @@
     <div class="wrap">
       <div class="section-head">
         <h2>Engineering Decision Matrix</h2>
-        <p>P1 將每個專案從「功能展示」提升成可面試的工程證據鏈：Problem → Decision → Trade-off → Failure / Recovery → Evidence。</p>
+        <p>P2 將作品集進一步收斂成可面試、可驗證的工程證據鏈：Problem → Deterministic Truth → Decision → Trade-off → Failure / Recovery → Evaluation → Evidence。</p>
       </div>
       <div class="matrix-wrap">
         <table>
           <thead><tr><th>Project</th><th>Problem</th><th>Key Decision</th><th>Main Trade-off</th><th>Evidence</th></tr></thead>
           <tbody>
-            <tr><td><strong>Enterprise ETL</strong></td><td>ETL lifecycle 不能只靠 scheduler status</td><td>Airflow orchestration + Hop processing + PostgreSQL execution truth</td><td>跨 runtime correlation 與 audit DB dependency</td><td><a href="https://kewinall.github.io/enterprise-etl-platform/#engineering-decisions">Decision Evidence</a></td></tr>
+            <tr><td><strong>Enterprise ETL</strong></td><td>Legacy modernization 與 AI interpretation 都需要可驗證 structural truth</td><td>Deterministic parser / metadata / lineage first；AI semantic layer second；runtime 仍由 Airflow + Hop + PostgreSQL execution truth 控制</td><td>Parser/plugin coverage、evaluation corpus 與 multi-runtime dependency</td><td><a href="https://kewinall.github.io/enterprise-etl-platform/#engineering-decisions">Decision + Evaluation Evidence</a></td></tr>
             <tr><td><strong>Data Platform MCP</strong></td><td>AI client 不應直接取得 backend-native privilege</td><td>MCP Tool Contract + Adapter + RBAC/Tenant + read-only defense-in-depth</td><td>Protocol/schema maintenance 與 backend normalization</td><td><a href="https://kewinall.github.io/data-platform-mcp-server/#engineering-decisions">Decision Evidence</a></td></tr>
             <tr><td><strong>Agentic DataOps</strong></td><td>LLM reasoning 不能等同 production authority</td><td>Deterministic Policy + Human Approval + Explicit Executor + Audit</td><td>不是 full-auto remediation，增加 approval latency</td><td><a href="https://kewinall.github.io/agentic-dataops-copilot/#engineering-decisions">Decision Evidence</a></td></tr>
             <tr><td><strong>Enterprise RAG</strong></td><td>Fluent answer 不代表 grounded / tenant-safe</td><td>Hybrid Retrieval + Citation + Evaluation + Tenant Governance</td><td>Latency / tuning / eval dataset maintenance</td><td><a href="https://kewinall.github.io/enterprise-rag-platform/#engineering-decisions">Decision Evidence</a></td></tr>
@@ -175,7 +175,7 @@
         <p>每個專案都有至少一個可執行的 failure / governance / regression evidence，而不是只用 Architecture Diagram 支撐 claim。</p>
       </div>
       <div class="evidence-grid">
-        <div><b>ETL</b><span>Lifecycle smoke · Observability smoke · Supply-chain smoke</span></div>
+        <div><b>ETL</b><span>10-case synthetic ground truth · Parser metrics · AI hallucination guard · Failure fallback · Lifecycle / Observability / Supply-chain smoke</span></div>
         <div><b>MCP</b><span>Auth/Audit · Security · Protocol · Integration · Helm validation</span></div>
         <div><b>DataOps</b><span>Governance · Multi-Agent · RAG evaluation · MCP integration · Hash audit</span></div>
         <div><b>RAG</b><span>Tenancy · Adversarial · Retrieval/Answer/Agent evaluation · Budget/Rate</span></div>
@@ -195,26 +195,26 @@
         <article class="card wide">
           <span class="num">01 · Data Engineering Foundation</span>
           <h3>Enterprise ETL Platform</h3>
-          <div class="role">Enterprise Data Engineering Platform · v0.5.0</div>
-          <p>以 Airflow → Apache Hop 為 execution path，涵蓋 PostgreSQL audit/retry lifecycle、immutable promotion、air-gapped delivery、Prometheus/Grafana、SLO 與 alerting。</p>
-          <div class="chips"><span class="chip">Airflow</span><span class="chip">Apache Hop</span><span class="chip">PostgreSQL</span><span class="chip">Supply Chain</span><span class="chip">Observability</span></div>
+          <div class="role">Enterprise Data Engineering Platform · v0.8.0</div>
+          <p>從 Legacy Pentaho / Hop deterministic parsing、normalized metadata / lineage、AI semantic evaluation 與 hallucination guard，一路延伸到 Airflow → Apache Hop execution、PostgreSQL audit/retry、immutable promotion、air-gapped delivery、Prometheus/Grafana SLO。</p>
+          <div class="chips"><span class="chip">ETL Intelligence</span><span class="chip">Metadata / Lineage</span><span class="chip">AI Evaluation</span><span class="chip">Airflow / Hop</span><span class="chip">Production Evidence</span></div>
           <div class="links">
             <a class="live" href="https://kewinall.github.io/enterprise-etl-platform/">Live Guide</a>
             <a href="https://github.com/kewinall/enterprise-etl-platform">Repository</a>
-            <a href="https://github.com/kewinall/enterprise-etl-platform/releases/tag/v0.5.0">Release</a>
+            <a href="https://github.com/kewinall/enterprise-etl-platform/releases/tag/v0.8.0">Release</a>
           </div>
         </article>
 
         <article class="card">
           <span class="num">02 · Integration Layer</span>
           <h3>Data Platform MCP Server</h3>
-          <div class="role">Tool / Integration Platform · v0.4.0</div>
+          <div class="role">Tool / Integration Platform · v0.5.0</div>
           <p>將 PostgreSQL、Vertica、Airflow、Logs、Metadata 與 Lineage 轉換成標準化、受治理的 MCP Tool Contract。</p>
           <div class="chips"><span class="chip">MCP</span><span class="chip">Vertica</span><span class="chip">Metadata</span><span class="chip">Lineage</span><span class="chip">OIDC/RBAC</span></div>
           <div class="links">
             <a class="live" href="https://kewinall.github.io/data-platform-mcp-server/">Live Guide</a>
             <a href="https://github.com/kewinall/data-platform-mcp-server">Repository</a>
-            <a href="https://github.com/kewinall/data-platform-mcp-server/releases/tag/v0.4.0">Release</a>
+            <a href="https://github.com/kewinall/data-platform-mcp-server/releases/tag/v0.5.0">Release</a>
           </div>
         </article>
 
@@ -264,7 +264,7 @@
     <div class="wrap">
       <div class="section-head">
         <h2>Engineering Focus</h2>
-        <p>作品集強調 production engineering，而不是只展示 feature completeness。</p>
+        <p>作品集強調 production engineering 與 measurable evidence，而不是只展示 feature completeness。ETL v0.8.0 特別把 deterministic truth、AI evaluation、failure semantics 與 cost-evidence discipline 放進同一條工程故事。</p>
       </div>
       <div class="focus">
         <div><b>Data Engineering</b><span>ETL / ELT · DWH · Orchestration · Retry / Recovery</span></div>
