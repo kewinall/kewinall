@@ -18,8 +18,8 @@
 
 | Project | Portfolio Role | What it demonstrates | Release |
 |---|---|---|---:|
-| **[Enterprise ETL Platform](https://github.com/kewinall/enterprise-etl-platform)** · [Live Guide](https://kewinall.github.io/enterprise-etl-platform/) | **Enterprise Data Engineering Platform** | Airflow → Apache Hop ETL lifecycle、PostgreSQL Audit、Retry、Immutable Supply Chain、Air-Gapped Delivery、Prometheus/Grafana、SLO | `v0.5.0` |
-| **[Data Platform MCP Server](https://github.com/kewinall/data-platform-mcp-server)** · [Live Guide](https://kewinall.github.io/data-platform-mcp-server/) | **Tool / Integration Platform** | PostgreSQL、Vertica、Airflow、Logs、Metadata、Lineage 的標準化 MCP Tool Layer，搭配 OIDC、RBAC、Multi-tenancy | `v0.4.0` |
+| **[Enterprise ETL Platform](https://github.com/kewinall/enterprise-etl-platform)** · [Live Guide](https://kewinall.github.io/enterprise-etl-platform/) | **Enterprise Data Engineering Platform** | Legacy Pentaho/Hop modernization、deterministic metadata / lineage、AI evaluation / hallucination guard、Airflow → Hop runtime、PostgreSQL Audit/Retry、Immutable Supply Chain、Air-Gapped Delivery、Prometheus/Grafana SLO | `v0.8.0` |
+| **[Data Platform MCP Server](https://github.com/kewinall/data-platform-mcp-server)** · [Live Guide](https://kewinall.github.io/data-platform-mcp-server/) | **Tool / Integration Platform** | PostgreSQL、Vertica、Airflow、Logs、Metadata、Lineage 的標準化 MCP Tool Layer，搭配 OIDC、RBAC、Multi-tenancy | `v0.5.0` |
 | **[Agentic DataOps Copilot](https://github.com/kewinall/agentic-dataops-copilot)** · [Live Guide](https://kewinall.github.io/agentic-dataops-copilot/) | **AI Reasoning / DataOps Operations** | Incident Triage、Evidence Correlation、Root Cause Analysis、Policy、Human Approval、Tamper-evident Audit | `v0.5.0` |
 | **[Enterprise RAG Platform](https://github.com/kewinall/enterprise-rag-platform)** · [Live Guide](https://kewinall.github.io/enterprise-rag-platform/) | **Knowledge AI Platform** | Ingestion、Hybrid Retrieval、Reranking、Grounded Generation、Citation、Evaluation、Knowledge Governance | `v0.6.0` |
 | **[Multi-LLM AI Gateway](https://github.com/kewinall/multi-llm-ai-gateway)** · [Live Guide](https://kewinall.github.io/multi-llm-ai-gateway/) | **Model Control Plane** | OpenAI-compatible API、Multi-provider Routing、Fallback、Streaming、Policy、Quota / Cost、OIDC、Observability | `v0.5.0` |
@@ -99,13 +99,35 @@ P1 將五個作品統一成 **Problem → Engineering Decision → Trade-off →
 
 | Project | Key Engineering Decision | Main Trade-off | Production Evidence |
 |---|---|---|---|
-| **[Enterprise ETL Platform](https://kewinall.github.io/enterprise-etl-platform/#engineering-decisions)** | Airflow orchestration + Hop processing + PostgreSQL execution truth + immutable promotion | 多 runtime 與 audit DB dependency | lifecycle / observability / supply-chain smoke |
+| **[Enterprise ETL Platform](https://kewinall.github.io/enterprise-etl-platform/#engineering-decisions)** | Deterministic parser owns ETL structural truth; AI is evidence-grounded advisory layer; runtime uses Airflow + Hop + PostgreSQL execution truth + immutable promotion | Parser/plugin coverage、evaluation corpus maintenance、multi-runtime dependency | migration / parser metrics / AI guardrail / lifecycle / observability / supply-chain evidence |
 | **[Data Platform MCP Server](https://kewinall.github.io/data-platform-mcp-server/#engineering-decisions)** | MCP Tool Contract + Adapter + RBAC/Tenant + read-only defense-in-depth | Protocol/schema maintenance、backend normalization | auth/audit、security、protocol、integration、Helm tests |
 | **[Agentic DataOps Copilot](https://kewinall.github.io/agentic-dataops-copilot/#engineering-decisions)** | Reasoning 與 authority 分離；Policy → Approval → Explicit Executor → Audit | 非 full-auto remediation、approval latency | governance、multi-agent、RAG eval、MCP、hash-chained audit |
 | **[Enterprise RAG Platform](https://kewinall.github.io/enterprise-rag-platform/#engineering-decisions)** | Hybrid Retrieval + Citation + Evaluation + Tenant Governance | Latency / tuning / eval dataset maintenance | tenancy、adversarial、retrieval/answer/agent eval、budget/rate |
 | **[Multi-LLM AI Gateway](https://kewinall.github.io/multi-llm-ai-gateway/#engineering-decisions)** | Centralized model control plane + routing/fallback + policy/budget + Redis state | Gateway / Redis 成為新 production dependency | router、Redis integration、governance、identity、Helm validation |
 
 這個矩陣的重點不是列技術名稱，而是展示：**為什麼這樣設計、犧牲了什麼、系統會在哪裡失敗，以及有什麼 evidence 可以驗證 claim。**
+
+---
+
+## Portfolio Evidence Story
+
+五個 repository 的共同主軸不是「AI feature 越多越好」，而是把不同類型的 truth 與 authority 放在正確的位置：
+
+    Deterministic Data / Metadata Truth
+                |
+                v
+    Governed Integration / AI Assistance
+                |
+                v
+    Evaluation / Grounding / Failure Semantics
+                |
+                v
+    Runtime / Audit / Observability
+                |
+                v
+    Immutable / Controlled Delivery
+
+enterprise-etl-platform v0.8.0 是目前最完整的示例：Legacy ETL 先經 deterministic parser 形成 normalized metadata / lineage，再由 AI 做 semantic interpretation；AI 結果需回到 parser evidence 驗證，並以 synthetic ground truth、CI regression、failure fallback 與 Gateway usage contract 證明可控性。沒有 live token / pricing evidence 時，成本欄位保持 null，不把估算包裝成 production benchmark。
 
 ---
 

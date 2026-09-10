@@ -19,13 +19,15 @@
 
 ## 30 秒總覽
 
-我的核心仍然是 **Data Engineering / Data Platform**。我把作品集拆成五個不同責任層：Enterprise ETL Platform 負責資料處理與 orchestration；Data Platform MCP Server 把資料平台能力標準化成安全的 tool layer；Agentic DataOps Copilot 展示 AI 如何在 policy、approval 與 audit 下協助維運；Enterprise RAG Platform 處理企業知識 retrieval、citation 與 evaluation；Multi-LLM AI Gateway 則集中管理 model routing、fallback、cost、identity 與 policy。重點不是堆 AI feature，而是展示一套可部署、可治理、可觀測、可稽核的 enterprise platform thinking。
+我的核心仍然是 **Data Engineering / Data Platform**。我把作品集拆成五個不同責任層：Enterprise ETL Platform 負責 Legacy ETL modernization、deterministic metadata / lineage、AI-assisted interpretation 與 ETL runtime lifecycle；Data Platform MCP Server 把資料平台能力標準化成安全的 tool layer；Agentic DataOps Copilot 展示 AI 如何在 policy、approval 與 audit 下協助維運；Enterprise RAG Platform 處理企業知識 retrieval、citation 與 evaluation；Multi-LLM AI Gateway 則集中管理 model routing、fallback、cost、identity 與 policy。Portfolio 的共同主軸是 **deterministic truth → governed AI → measurable evaluation → production evidence**，而不是堆 AI feature。
 
 ## 面試題 → 優先案例
 
 | 面試官問題 | 第一案例 | 第二案例 |
 |---|---|---|
 | ETL / ELT、Airflow、資料管線、Retry | **Enterprise ETL Platform** | Agentic DataOps Copilot |
+| Legacy ETL modernization、Pentaho → Hop | **Enterprise ETL Platform** | Data Platform MCP Server |
+| Parser accuracy、AI hallucination、AI evaluation | **Enterprise ETL Platform** | Enterprise RAG Platform / Multi-LLM Gateway |
 | Data Platform、Integration、Metadata / Lineage | **Data Platform MCP Server** | Enterprise ETL Platform |
 | Production Operations、Incident、RCA | **Agentic DataOps Copilot** | Enterprise ETL Platform |
 | RAG、Vector Search、Knowledge AI | **Enterprise RAG Platform** | Multi-LLM AI Gateway |
@@ -39,65 +41,89 @@
 # 1. Enterprise ETL Platform
 
 **Role:** Enterprise Data Engineering Platform  
+**Release:** v0.8.0  
 **Repository:** https://github.com/kewinall/enterprise-etl-platform
 
 ## 30 秒
 
-這個專案處理的不是「ETL 能不能跑」，而是企業資料管線從 orchestration、execution、retry、audit、artifact promotion 到 observability 能不能形成一致 lifecycle。我把 **Airflow 負責 orchestration、Apache Hop 負責 transformation、PostgreSQL 保存 execution truth**，並採 build once / immutable promotion，讓 TEST 與 PROD 能驗證是同一個 artifact。Repo 裡有 lifecycle、observability、supply-chain smoke tests，所以面試時我可以直接用 Evidence 證明 retry history、SLO alert 與 offline bundle verification 不是只有架構圖。
+這個專案現在不只回答「ETL 能不能穩定執行」，而是把 **Legacy ETL modernization → deterministic metadata / lineage → AI semantic interpretation → evaluation → runtime / delivery evidence** 串成一條完整鏈。Pentaho / Hop definition 先由 deterministic parser 抽出 step、source、target、SQL 與 dependency，structural truth 不交給 LLM；AI 只做 semantic enrichment，且輸出必須回到 parser evidence 驗證。Repo 另外保留 Airflow + Hop + PostgreSQL execution truth、immutable promotion、observability 與 air-gapped delivery。v0.8.0 有 10 組 synthetic evaluation cases、parser metrics、hallucination guard、AI failure fallback 與 CI report，所以我可以證明的不只是架構，而是 correctness、failure semantics 與 evidence discipline。
 
 ## 2 分鐘
 
-我做這個專案時先定義了一個問題：很多 ETL 系統只看 scheduler 顯示綠燈，但如果第一次 execution 失敗、第二次 retry 成功，第一次 failure 是否被保存？TEST 與 PROD 是否真的跑同一個 artifact？監控掛掉時 execution history 是否還存在？這些才是 production Data Engineering 的問題。
+這個專案有兩類 production 問題。第一類是 Legacy ETL modernization：如果直接把 Pentaho / Hop definition 丟給 LLM，要怎麼知道它沒有漏 step、看錯 source / target、改寫 SQL，或憑空產生 dependency？第二類是 runtime：即使 migration 正確，第一次 execution failure、retry、artifact promotion、monitoring failure 又要怎麼追蹤？
 
-因此我把責任拆開。**Airflow 處理 scheduling、dependency、retry context；Apache Hop 專注 ETL transformation；PostgreSQL 保存 run、attempt、event，作為 durable execution truth。** 這樣 retry 不會覆蓋第一次 failure，而且 monitoring 不必依賴 Airflow UI。
+所以我先做一個很明確的 responsibility boundary：**deterministic parser owns structural truth，AI owns semantic interpretation。** Parser 把 step、source、target、dependency、SQL、table、parameter / variable 正規化成 metadata / lineage evidence；AI 只能基於這些 evidence 做摘要與解釋。若 AI 回傳 parser 沒有提供的 source、target、SQL 或 dependency，就會被 validation reject，而不是當成新事實。
 
-第二個決策是 **build once, promote the same immutable artifact**。如果每個環境重新 build，即使 Git commit 相同，dependency 或 base image 仍可能 drift，所以我用 image identity、checksum 與 offline bundle verification 控制 promotion。
+接著 runtime 層仍維持 **Airflow orchestration + Apache Hop processing + PostgreSQL execution truth**。Retry 不覆蓋第一次 failure，monitoring 從 read-only audit evidence 匯出；delivery 則使用 build once / immutable promotion，air-gapped bundle 有 checksum / signature verification。
 
-代價是 platform component 變多，Airflow、Hop、Audit DB 與 monitoring 之間需要清楚的 failure boundary。但我刻意把 observability 從 read-only audit view 匯出到 SQL Exporter、Prometheus、Alertmanager、Grafana，讓 monitoring 掛掉時 execution truth 還是在 PostgreSQL。
+v0.8.0 再把 AI layer 做成可評測的工程問題。Repository 有 **10 組 synthetic / generic cases**，其中 9 組為有效 definition、1 組是預期 parse failure。checked-in regression baseline 在這個小型 synthetic corpus 上 structural exact-match 是 100%，unexpected parser failure 是 0，semantic structured validity / parser-truth preservation 也是 100%，unsupported structural claim 是 0。這些數字只代表 repository regression corpus，不宣稱 production accuracy。
 
-Evidence 上，repo 有 `etl_lifecycle_smoke.sh`、`observability_smoke.sh`、`supply_chain_smoke.sh`，可以實際建立 success、failure、retry、stale running 狀態並驗證 SLO / alert，以及 immutable artifact verification。這個專案最能代表我的 Data Engineering 核心：我關注的不只是 transformation，而是整個 pipeline lifecycle 是否可恢復、可追蹤、可交付。
+成本部分也刻意不造數字。若沒有 live Multi-LLM Gateway 回傳 token / pricing evidence，cost 就保持 null；243 pipelines 的 projection 只有在實際 usage evidence 存在時才計算。這個 project 的核心價值是：**AI 可以幫忙理解 Legacy ETL，但 correctness、release gate 與 structural truth 仍由 deterministic evidence 控制。**
 
 ## 5 分鐘
 
-### 1) Problem — 先說 production 問題
+### 1) Problem — Legacy modernization 不能把 correctness 外包給 LLM
 
-「我把 ETL 看成一個 lifecycle，而不是一支 transformation。真正要回答的是：誰負責 scheduling、誰執行 transformation、retry history 存在哪裡、release 如何跨環境、offline 環境怎麼交付，以及 monitoring failure 是否會影響 execution evidence。」
+企業 ETL modernization 不只是把 KTR / KJB 轉成另一種格式。我要先知道原本有哪些 steps、資料從哪裡來、寫到哪裡、SQL 是什麼、workflow dependency 是什麼，以及哪些 plugin 我其實無法可靠理解。這些都是 structural truth，不能因為模型回答流暢就當作正確。
 
-### 2) Architecture Decision
+同時，modernization 完成之後還要回答 runtime 問題：retry history 是否完整、TEST / PROD 是否真的是同一 artifact、監控掛掉時 execution evidence 是否還在、離線環境怎麼交付。
 
-第一個 decision 是 **Airflow orchestration + Hop processing**。我沒有把所有 transformation 都塞進 PythonOperator，也沒有讓 Hop 同時承擔企業級 scheduler 責任。這樣 workflow control plane 與 data processing runtime 可以分開演進。
+### 2) Decision — Deterministic parser first, AI second
 
-第二個 decision 是 **PostgreSQL execution truth**。每個 logical run 可以有多個 attempt，failure 和 retry success 是不同紀錄。這比只看 scheduler 最終 state 更適合 audit、SLO 與 incident analysis。
+第一個 decision 是 **先 parser，再 AI**。Parser 對 Pentaho / Hop definition 做 deterministic extraction，建立 normalized metadata / lineage，包括 Pipeline / Step、Source / Target、SQL / Table、Parameter / Variable、Workflow dependency 與 Unsupported component。
 
-第三個 decision 是 **immutable promotion**。artifact 在 TEST 驗證完成後不重新 build，透過 digest/checksum 進入下一環境；air-gapped 情境則使用 bundle + verification。我的設計原則是「promotion，不是 rebuild」。
+AI context 由這份 metadata 產生，而不是直接把 raw ETL artifact 當作唯一真相。AI 可以做 summary、semantic explanation 或 modernization assistance，但 source / target / SQL / dependency 等 structured claim 必須能回到 parser evidence。
 
-### 3) Trade-off
+這個 decision 的 trade-off 是 parser coverage 要自己維護，遇到 vendor-specific plugin 不能假裝理解；但換來的是 repeatability、auditability 與可做 regression test。
 
-這個設計的代價很直接：component 更多，而且 Audit DB 本身變成 critical dependency。我的處理方式不是假裝沒有 dependency，而是把 failure semantics 寫清楚。例如 Audit DB unavailable 時，不能因 Airflow 顯示 success 就宣稱 durable execution truth 已完整保存；應先恢復 Audit DB，再做狀態驗證與必要補償。
+### 3) Decision — Runtime truth 與 delivery truth 也要 deterministic
 
-### 4) Failure / Recovery
+第二個 decision 是 **Airflow orchestration + Hop processing + PostgreSQL execution truth**。Logical run 與 attempt 分開，因此第一次 FAILED 和後續 retry SUCCESS 都能保存。
 
-- **Hop fail → Airflow retry**：保留第一次 FAILED attempt，再建立下一個 attempt。
-- **Prometheus / Grafana fail**：ETL 仍可保留 PostgreSQL audit truth；監控恢復後重新 scrape。
-- **Artifact identity mismatch**：promotion fail closed，不讓不一致 image / bundle 進下一環境。
-- **Stale RUNNING**：透過 audit view 與 alert rule 偵測，不依人工盯 UI。
+第三個 decision 是 **build once, promote same immutable artifact**。TEST 驗證完成後不在 PROD rebuild；跨環境靠 image identity / checksum，air-gapped delivery 再加 bundle signature verification。
 
-### 5) Evidence / Close
+### 4) Evaluation — AI 必須可以量測，也必須允許「沒有數字」
 
-我特別加入 smoke test，而不是只寫 documentation。比如 `make observability-smoke` 會建立 synthetic success / failed / retry / stale execution，再驗證 metrics、99% success SLO、firing alerts、Alertmanager 與 Grafana provisioning；supply-chain smoke 則驗證 bundle 與 artifact identity。
+v0.8.0 建立 synthetic evaluation corpus，涵蓋 extraction、join、lookup、filter、aggregation、SQL-heavy、multi-pipeline dependency、invalid / partial definition、unsupported component、complex parameters。
 
-所以如果面試官問我 Airflow 或 ETL，我會把重點放在 **retry correctness、execution truth、immutable delivery、failure isolation、observability**，而不只是 DAG 語法。
+Parser evaluation 量 step / source / target / dependency / SQL / table extraction、precision / recall / F1 / exact-match、unsupported node detection 與 expected / unexpected failure rate。
+
+Semantic evaluation 量 structured output validity、factual consistency、grounding、completeness、parser-truth preservation 與 unsupported structural claims。
+
+我特別保留一個重要原則：**沒有 live Gateway evidence，就沒有假 token / cost benchmark。** Baseline 的 token / cost 是 null；只有 Multi-LLM Gateway 實際回傳 usage / pricing 時才做 per-pipeline、batch、provider/model 與 243-pipeline projection。
+
+### 5) Failure / Recovery
+
+- **AI Gateway unavailable**：Parser、metadata、lineage、migration validation 仍可使用；回 deterministic fallback。
+- **AI structured output invalid**：做有限次 validation retry；仍不合法就 reject / fallback。
+- **AI hallucinated source / target / SQL / dependency**：與 parser evidence 比對後 reject。
+- **Provider timeout / rate limit**：provider routing / retry / fallback 留給 Multi-LLM Gateway，不在 ETL repo 重做。
+- **Unsupported ETL plugin**：標記 unsupported / manual review，不讓 AI 自動宣稱可 migration。
+- **Hop execution fail**：Airflow retry，但 PostgreSQL 保存每個 attempt。
+- **Artifact identity mismatch**：promotion fail closed。
+
+### 6) Evidence / Close
+
+除了原有 etl_lifecycle_smoke.sh、observability_smoke.sh、supply_chain_smoke.sh，現在還有 evaluation/dataset.json、etl_intelligence/evaluation.py、tests/test_p2_evaluation.py、reports/baseline/、docs/ETL_AI_EVALUATION.md 與 GitHub Actions p2-etl-ai-evaluation artifact。
+
+所以我在面試時不會說「AI 可以自動幫我理解所有 ETL」。我會說：**我先定義哪些 structural facts 必須 deterministic，再把 AI 限制在 advisory / semantic layer，最後用 synthetic ground truth、failure semantics、usage evidence 與 CI regression 去驗證它。**
+
+這個故事同時可以回答 Data Engineering、Legacy Modernization、Data Platform、AI Integration 與 LLM evaluation，而核心仍然是 Data Engineering correctness。
 
 ### 可延伸追問
 
-- 為什麼不全部用 Airflow？
-- Audit DB 掛掉要不要停止 ETL？
+- Parser 準確率怎麼定義與驗證？
+- 為什麼 structural truth 不直接交給 LLM？
+- Raw ETL → LLM 與 Parser → LLM 怎麼比較？
+- AI hallucination 如何在 application layer 擋掉？
+- AI / Gateway 掛掉時 ETL modernization 是否還能工作？
+- 243 pipelines 的 token / cost 要怎麼估，而且如何避免假 benchmark？
+- Unsupported Pentaho / Hop plugin 要怎麼處理？
+- 100% synthetic regression 為什麼不能宣稱 production accuracy？
 - Exactly-once 做得到嗎？哪些地方其實只能做到 idempotent / at-least-once？
-- 如何設計 backfill、SLA / SLO 與 data quality gate？
 - Air-gapped promotion 如何防止 artifact drift？
 
 ---
-
 # 2. Data Platform MCP Server
 
 **Role:** Tool / Integration Platform  
