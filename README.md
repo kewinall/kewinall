@@ -33,7 +33,7 @@
 > [履歷能力 ↔ Portfolio Evidence 對照](RESUME_GITHUB_MAPPING.md) — 將真實工作成果、GitHub Evidence、Resume Bullet、職缺排序與 Claim Safety 串成同一條證據鏈，避免把 Portfolio implementation 過度宣稱成客戶 production 經驗。
 
 > **🧠 Architecture Decision Stories / P2.3**  
-> [12 個 Senior-level 架構深度追問題](ARCHITECTURE_DECISION_STORIES.md) — 聚焦 responsibility boundary、execution truth、immutable promotion、MCP / read-only security、RBAC / tenant isolation、Agent authority、Hybrid Retrieval、Multi-LLM control plane 與 Redis failure semantics。
+> [12 個跨 Portfolio Senior-level 架構深度追問題](ARCHITECTURE_DECISION_STORIES.md) + [6 個 ETL AI / Evaluation 深度追問題](ETL_AI_ARCHITECTURE_DECISIONS.md) — 共 18 題，從 responsibility boundary、execution truth、immutable promotion、MCP / AI governance，一路延伸到 deterministic parser、hallucination guard、AI failure semantics、token / cost evidence 與 synthetic → production evaluation。
 
 ---
 
