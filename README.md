@@ -35,6 +35,9 @@
 > **🧠 Architecture Decision Stories / P2.3**  
 > [12 個跨 Portfolio Senior-level 架構深度追問題](ARCHITECTURE_DECISION_STORIES.md) + [6 個 ETL AI / Evaluation 深度追問題](ETL_AI_ARCHITECTURE_DECISIONS.md) — 共 18 題，從 responsibility boundary、execution truth、immutable promotion、MCP / AI governance，一路延伸到 deterministic parser、hallucination guard、AI failure semantics、token / cost evidence 與 synthetic → production evaluation。
 
+> **🎯 Target Job Mapping / P2.4**  
+> [JD → Resume → GitHub → Interview Story 對照](TARGET_JOB_MAPPING.md) — 針對 Senior Data Engineer、Data Platform Engineer、DataOps / Platform Engineer 與 AI Platform / Integration 四類職缺，建立 Evidence A/B/C/D、weighted Fit Score、Critical Gap Rule、role-specific Resume / GitHub 排序與 Gap Strategy。
+
 ---
 
 ## Portfolio Architecture
